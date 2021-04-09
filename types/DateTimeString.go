@@ -1,4 +1,4 @@
-package woocommerce
+package timechimp
 
 import (
 	"encoding/json"
@@ -53,4 +53,8 @@ func (d *DateTimeString) ValuePtr() *time.Time {
 
 func (d DateTimeString) Value() time.Time {
 	return time.Time(d)
+}
+
+func (d DateTimeString) String() string {
+	return time.Time(d).Format(dateTimeFormat)
 }
