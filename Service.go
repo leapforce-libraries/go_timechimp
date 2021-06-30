@@ -9,13 +9,13 @@ import (
 )
 
 const (
-	apiURL string = "https://api.timechimp.com/v1"
+	apiName string = "TimeChimp"
+	apiURL  string = "https://api.timechimp.com/v1"
 )
 
 // type
 //
 type Service struct {
-	host        string
 	accessToken string
 	httpService *go_http.Service
 }
@@ -80,4 +80,20 @@ func (service *Service) put(requestConfig *go_http.RequestConfig) (*http.Request
 
 func (service *Service) delete(requestConfig *go_http.RequestConfig) (*http.Request, *http.Response, *errortools.Error) {
 	return service.httpRequest(http.MethodDelete, requestConfig)
+}
+
+func (service *Service) APIName() string {
+	return apiName
+}
+
+func (service *Service) APIKey() string {
+	return service.accessToken
+}
+
+func (service *Service) APICallCount() int64 {
+	return service.httpService.RequestCount()
+}
+
+func (service *Service) APIReset() {
+	service.httpService.ResetRequestCount()
 }
