@@ -1,6 +1,8 @@
 package timechimp
 
 import (
+	"fmt"
+
 	errortools "github.com/leapforce-libraries/go_errortools"
 	go_http "github.com/leapforce-libraries/go_http"
 	t_types "github.com/leapforce-libraries/go_timechimp/types"
@@ -31,13 +33,10 @@ type User struct {
 // GetUsers returns all users
 //
 func (service *Service) GetUsers() (*[]User, *errortools.Error) {
-	endpoint := "users"
-
-	path := endpoint
 	users := []User{}
 
 	requestConfig := go_http.RequestConfig{
-		URL:           service.url(path),
+		URL:           service.url("users"),
 		ResponseModel: &users,
 	}
 
@@ -47,4 +46,22 @@ func (service *Service) GetUsers() (*[]User, *errortools.Error) {
 	}
 
 	return &users, nil
+}
+
+// GetUsers returns all users
+//
+func (service *Service) GetUser(userID int64) (*User, *errortools.Error) {
+	user := User{}
+
+	requestConfig := go_http.RequestConfig{
+		URL:           service.url(fmt.Sprintf("users/%v", userID)),
+		ResponseModel: &user,
+	}
+
+	_, _, e := service.get(&requestConfig)
+	if e != nil {
+		return nil, e
+	}
+
+	return &user, nil
 }
