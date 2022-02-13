@@ -2,6 +2,7 @@ package timechimp
 
 import (
 	"fmt"
+	"net/http"
 
 	errortools "github.com/leapforce-libraries/go_errortools"
 	go_http "github.com/leapforce-libraries/go_http"
@@ -36,11 +37,12 @@ func (service *Service) GetUsers() (*[]User, *errortools.Error) {
 	users := []User{}
 
 	requestConfig := go_http.RequestConfig{
+		Method:        http.MethodGet,
 		URL:           service.url("users"),
 		ResponseModel: &users,
 	}
 
-	_, _, e := service.get(&requestConfig)
+	_, _, e := service.httpRequest(&requestConfig)
 	if e != nil {
 		return nil, e
 	}
@@ -54,11 +56,12 @@ func (service *Service) GetUser(userID int64) (*User, *errortools.Error) {
 	user := User{}
 
 	requestConfig := go_http.RequestConfig{
+		Method:        http.MethodGet,
 		URL:           service.url(fmt.Sprintf("users/%v", userID)),
 		ResponseModel: &user,
 	}
 
-	_, _, e := service.get(&requestConfig)
+	_, _, e := service.httpRequest(&requestConfig)
 	if e != nil {
 		return nil, e
 	}

@@ -2,6 +2,7 @@ package timechimp
 
 import (
 	"fmt"
+	"net/http"
 	"net/url"
 	"time"
 
@@ -60,11 +61,12 @@ func (service *Service) GetTimeEntries(config *GetTimeEntriesConfig) (*[]TimeEnt
 	timeEntries := []TimeEntry{}
 
 	requestConfig := go_http.RequestConfig{
+		Method:        http.MethodGet,
 		URL:           service.url(path),
 		ResponseModel: &timeEntries,
 	}
 
-	_, _, e := service.get(&requestConfig)
+	_, _, e := service.httpRequest(&requestConfig)
 	if e != nil {
 		return nil, e
 	}
