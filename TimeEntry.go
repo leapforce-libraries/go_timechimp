@@ -14,15 +14,15 @@ import (
 // TimeEntry stores TimeEntry from Service
 //
 type TimeEntry struct {
-	ID              int64                   `json:"id"`
-	CustomerID      int64                   `json:"customerId"`
+	Id              int64                   `json:"id"`
+	CustomerId      int64                   `json:"customerId"`
 	CustomerName    *string                 `json:"customerName"`
-	ProjectID       int64                   `json:"projectId"`
+	ProjectId       int64                   `json:"projectId"`
 	ProjectName     *string                 `json:"projectName"`
-	ProjectTaskID   int64                   `json:"projectTaskId"`
-	TaskID          int64                   `json:"taskId"`
+	ProjectTaskId   int64                   `json:"projectTaskId"`
+	TaskId          int64                   `json:"taskId"`
 	TaskName        *string                 `json:"taskName"`
-	UserID          int64                   `json:"userId"`
+	UserId          int64                   `json:"userId"`
 	UserDisplayName string                  `json:"userDisplayName"`
 	UserTags        []string                `json:"userTags"`
 	Date            t_types.DateTimeString  `json:"date"`
@@ -62,7 +62,7 @@ func (service *Service) GetTimeEntries(config *GetTimeEntriesConfig) (*[]TimeEnt
 
 	requestConfig := go_http.RequestConfig{
 		Method:        http.MethodGet,
-		URL:           service.url(path),
+		Url:           service.url(path),
 		ResponseModel: &timeEntries,
 	}
 

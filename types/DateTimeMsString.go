@@ -24,8 +24,11 @@ func (d *DateTimeMsString) UnmarshalJSON(b []byte) error {
 
 	err := json.Unmarshal(b, &s)
 	if err != nil {
-		fmt.Println("DateTimeMsString", string(b))
 		return returnError()
+	}
+
+	if len(s) > len(dateTimeMsFormat) {
+		s = s[:len(dateTimeMsFormat)]
 	}
 
 	if s == "" || s == "0000-00-00 00:00:00.000" {
